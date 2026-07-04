@@ -7,6 +7,12 @@ CHOICES_ROLE(
     ('Admin', 'Admin'),
 )
 
+CHOICES_LEVEL(
+    ('Beginner', 'Beginner'),
+    ('Intermediate', 'Intermediate'),
+    ('advanced', 'advanced')
+)
+
 class UserProfile(AbstractUser):
     full_name = models.CharField(max_length=25)
     profile_picture = models.ImageField(upload_to='profile_image', null=True, blank=True)
@@ -32,3 +38,20 @@ class Links(models.Model):
 
 class Category(models.Model):
     category_name = models.CharField(max_length=25, unique=True)
+
+class Course(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    course_name = models.CharField(max_length=25, unique=True,)
+    description = models.TextField()
+    level = models.CharField(max_length=15, choices=CHOICES_LEVEL,)
+    price = models.IntegerField()
+    created_by = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+
+
+class Lesson(models.Model):
+    name_lesson = models.CharField(max_length=100)
+    video_url = models.URLField()
+    content = models.TextField()
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
