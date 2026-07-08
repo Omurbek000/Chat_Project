@@ -14,14 +14,14 @@ CHOICES_LEVEL(
 )
 
 class UserProfile(AbstractUser):
-    full_name = models.CharField(max_length=25)
+    full_name = models.CharField(max_length=35 , unique=True)
     profile_picture = models.ImageField(upload_to='profile_image', null=True, blank=True)
     role = models.CharField(max_length=5,choices=CHOICES_ROLE)
 
 
 class Teacher(models.Model):
     teacher = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    experience = models.IntegerField()
+    experience = models.PositiveIntegerField(default=1)
     teacher_role = models.CharField(max_length=5, choices=CHOICES_ROLE, default='Teacher')
     bio = models.TextField()
 
@@ -33,7 +33,7 @@ class Student(models.Model):
 
 class Links(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    links_url = models.URLField(blank=True, null=True)
+    links_url = models.URLField()
 
 
 class Category(models.Model):
@@ -41,7 +41,7 @@ class Category(models.Model):
 
 class Course(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    course_name = models.CharField(max_length=25, unique=True,)
+    course_name = models.CharField(max_length=25)
     description = models.TextField()
     level = models.CharField(max_length=15, choices=CHOICES_LEVEL,)
     price = models.IntegerField()
