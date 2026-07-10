@@ -13,7 +13,7 @@ from .models import (
 
 @register(Teacher)
 class TeacherTranslationOptions(TranslationOptions):
-    fields = "bio"
+    fields = ("bio",)
 
 
 @register(Category)
@@ -38,7 +38,7 @@ class AssignmentTranslationOptions(TranslationOptions):
 
 @register(Exam)
 class ExamTranslationOptions(TranslationOptions):
-    fields = "name_exam"
+    fields = ("name_exam",)
 
 
 @register(Question)
@@ -48,4 +48,4 @@ class QuestionTranslationOptions(TranslationOptions):
 
 @register(Answers)
 class AnswersTranslationOptions(TranslationOptions):
-    fields = "answers"
+    fields = ("answer_text",)
