@@ -16,6 +16,7 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='').split(',')
 
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -34,6 +35,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'chat.urls'
@@ -86,7 +88,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -94,6 +96,18 @@ USE_I18N = True
 
 USE_TZ = True
 
+USE_L10N = True
+
+
+LANGUAGES = (
+    ('ru', 'Russian'),
+    ('en', 'English'),
+)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
+MODELTRANSLATION_LANGUAGES = ('ru', 'en')
+
+LOCALE_PATHS = [BASE_DIR / 'locale']
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
