@@ -26,7 +26,7 @@ class UserProfile(AbstractUser):
 
 
 class Teacher(models.Model):
-    teacher = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='teacher')
     experience = models.PositiveIntegerField(default=1)
     teacher_role = models.CharField(
         max_length=10, choices=CHOICES_ROLE, default="Teacher"
@@ -38,7 +38,7 @@ class Teacher(models.Model):
 
 
 class Student(models.Model):
-    student = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    student = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='student')
     student_role = models.CharField(
         max_length=10, choices=CHOICES_ROLE, default="Client"
     )
@@ -48,7 +48,7 @@ class Student(models.Model):
 
 
 class Links(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE,related_name='links_student')
     links_url = models.URLField()
 
     def __str__(self):
@@ -63,7 +63,7 @@ class Category(models.Model):
 
 
 class Course(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='course_cartegory')
     course_name = models.CharField(max_length=25)
     description = models.TextField()
     level = models.CharField(

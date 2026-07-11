@@ -5,33 +5,43 @@ from .models import *
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = '__all__'
+        fields = ['id', 'full_name','profile_picture','role']
 
 class TeacherSerializer(serializers.ModelSerializer):
+    teacher = UserProfileSerializer(read_only=True)
     class Meta:
         model = Teacher
-        fields = '__all__'
+        fields = ['teacher','experience','teacher_role','bio']
 
 class StudentSerializer(serializers.ModelSerializer):
+    student = UserProfileSerializer(read_only=True)
     class Meta:
         model = Student
-        fields = '__all__'
+        fields = ['id','student','student_role']
 
 
 class LinksSerializer(serializers.ModelSerializer):
+    links_student = StudentSerializer(read_only=True)
     class Meta:
         model = Links 
-        fields = '__all__'
+        fields = ['id','links_student']
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ['category_name']
 
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
+
+
+
+class CourseDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
