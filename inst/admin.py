@@ -20,7 +20,7 @@ from .models import (
 )
 from modeltranslation.admin import (
     TranslationAdmin,
-    TranslationInlineModelAdmin,
+    # TranslationInlineModelAdmin,
     TranslationTabularInline,
 )
 

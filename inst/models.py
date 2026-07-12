@@ -83,7 +83,7 @@ class Lesson(models.Model):
     name_lesson = models.CharField(max_length=100)
     video_url = models.URLField()
     content = models.TextField()
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE,related_name='lesson_course')
 
     def __str__(self):
         return f"{self.course.course_name} - {self.name_lesson}"
