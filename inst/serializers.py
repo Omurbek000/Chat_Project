@@ -62,10 +62,10 @@ class CourseSerializer(serializers.ModelSerializer):
 
 
 class CourseDetailSerializer(serializers.ModelSerializer):
-    course_cartegory = CategorySerializer(many=True, read_only=True)
+    course_category = CategorySerializer(many=True, read_only=True)
     class Meta:
         model = Course
-        fields = ["course_cartegory","course_name","description","level","price","created_by","created_at","updated_at"]
+        fields = ["course_category","course_name","description","level","price","created_by","created_at","updated_at"]
 
 
 class LessonSerializer(serializers.ModelSerializer):

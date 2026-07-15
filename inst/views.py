@@ -1,5 +1,11 @@
 from rest_framework import viewsets
+from .models import UserProfile, Teacher,Student,Links,Category, Course,Lesson,Assignment,Exam,Question,Answers,Certificate,CourseReview,Cart,CartItem
 from .serializers import UserProfileSerializer,TeacherSerializer,StudentSerializer, LinksSerializer, CategorySerializer, CourseSerializer, LessonSerializer, AssignmentSerializer, ExamSerializer, QuestionSerializer, AnswersSerializer,CertificateSerializer,CourseReviewSerializer,CartSerializer, CartItemSerializer
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
+from .filters import CourseFilter
+from rest_framework import permissions
+from .permissions import CheckOwner, CheckUserOwner, CheckCourseOwner
 
 
 
@@ -30,6 +36,10 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    filter_backends = [DjangoFilterBackend,SearchFilter,OrderingFilter]
+    filterset_class = CourseFilter
+    search_fields = ['course_name']
+    ordering_fields = ['price']
 
 
 class LessonViewSet(viewsets.ModelViewSet):

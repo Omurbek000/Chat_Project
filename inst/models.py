@@ -63,7 +63,7 @@ class Category(models.Model):
 
 
 class Course(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='course_cartegory')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='course_category')
     course_name = models.CharField(max_length=25)
     description = models.TextField()
     level = models.CharField(
