@@ -1,5 +1,6 @@
-from .serializers import *
 from rest_framework import viewsets
+from .serializers import UserProfileSerializer,TeacherSerializer,StudentSerializer, LinksSerializer, CategorySerializer, CourseSerializer, LessonSerializer, AssignmentSerializer, ExamSerializer, QuestionSerializer, AnswersSerializer,CertificateSerializer,CourseReviewSerializer,CartSerializer, CartItemSerializer
+
 
 
 
@@ -67,7 +68,7 @@ class CourseReviewViewSet(viewsets.ModelViewSet):
 
 class CartViewSet(viewsets.ModelViewSet):
     queryset = Cart.objects.all()
-    serializer_class = UserProfileSerializer
+    serializer_class = CartSerializer
 
 
 class CartItemViewSet(viewsets.ModelViewSet):
