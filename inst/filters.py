@@ -1,7 +1,6 @@
 from django_filters import FilterSet, NumberFilter, CharFilter
 from .models import (
-    UserProfile, Teacher, Student, Course, Lesson,
-    Assignment, Exam, Certificate, CourseReview, Message
+    UserProfile, Teacher, Student, Course, Lesson, Exam, Certificate
 )
 
 

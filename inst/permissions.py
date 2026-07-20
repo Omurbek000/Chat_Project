@@ -1,21 +1,33 @@
 from rest_framework import permissions
 
-class CheckOwner(permissions.BasePermission):
-    def has_permission(self, request, view): # type: ignore
-        if request.user.role == 'teacher':
+
+class IsOwner(permissions.BasePermission):
+    """Только учителя."""
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.role == 'Teacher'
+
+
+class IsStudent(permissions.BasePermission):
+    """Только студенты."""
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.role == 'Client'
+
+
+class IsCourseOwner(permissions.BasePermission):
+    """Учитель может редактировать только свой курс."""
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
             return True
-        return False
+        return obj.created_by.teacher == request.user
 
 
-class CheckUserOwner(permissions.BasePermission):
-    def has_permission(self, request, view): # type: ignore
-        if request.user.role =='student':
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    """Владелец — полный доступ, остальные — только чтение."""
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
             return True
-        return False
-
-
-class CheckCourseOwner(permissions.BasePermission):
-    def has_object_permission(self, request, view, obj): # type: ignore
-        if obj.teacher.id == request.user.id:
-            return True
+        if hasattr(obj, 'user'):
+            return obj.user == request.user
+        if hasattr(obj, 'author'):
+            return obj.author == request.user
         return False
